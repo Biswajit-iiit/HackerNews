@@ -1,2 +1,3 @@
 *.pyc
-*/migrations/*
+HackerNews/*/migrations/*
+HackerNews/server_config.py

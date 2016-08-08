@@ -16,36 +16,7 @@
     </style>
   <script type="text/javascript">
     function CreateTableFromJSON() {
-        var myBooks = [
-            {
-                "sl_no": "1",
-                "title": "Computer Architecture",
-                "url": "Computers",
-                "user": "Biswajit",
-                "comments_count":"120",
-                "sentiment":"Positive",
-                "upvotes":"40"
-            },
-            {
-                "sl_no": "2",
-                "title": "Computer Architecture",
-                "url": "Computers",
-                "user": "Biswajit",
-                "comments_count":"120",
-                "sentiment":"Positive",
-                "upvotes":"40"
-            },
-            {
-                "sl_no": "3",
-                "title": "Computer Architecture",
-                "url": "Computers",
-                "user": "Biswajit",
-                "comments_count":"120",
-                "sentiment":"Positive",
-                "upvotes":"40"
-            }
-        ]
-
+        var article_arr = {{article_arr}}
         // CREATE DYNAMIC TABLE.
         var table = document.createElement("table");
 
@@ -54,15 +25,15 @@
         var tr = table.insertRow(-1);                   // TABLE ROW.
 
         // ADD JSON DATA TO THE TABLE AS ROWS.
-        for (var i = 0; i < myBooks.length; i++) {
+        for (var i = 0; i < article_arr.length; i++) {
 
             tr = table.insertRow(-1);
 
             var tabCell = tr.insertCell(-1);
-            tabCell.innerHTML = myBooks[i]['sl_no'];
+            tabCell.innerHTML = i;
             
             var tabCell = tr.insertCell(-1);
-            tabCell.innerHTML = "<a href=myBooks[i]['url']>"+myBooks[i]['title']+"</a>";
+            tabCell.innerHTML = "<a href="+article_arr[i]['url']+">"+article_arr[i]['title']+"</a>";
             
             tr = table.insertRow(-1);
 
@@ -70,16 +41,13 @@
             tabCell.innerHTML = "&emsp;";
 
             var tabCell = tr.insertCell(-1);
-            tabCell.innerHTML = myBooks[i]['upvotes']+" points";
+            tabCell.innerHTML = article_arr[i]['upvote_count']+" points";
             
             var tabCell = tr.insertCell(-1);
-            tabCell.innerHTML = "by "+myBooks[i]['user']+" |";
+            tabCell.innerHTML = "by "+article_arr[i]['user'];
             
             var tabCell = tr.insertCell(-1);
-            tabCell.innerHTML = myBooks[i]['comments_count']+" comments | ";
-
-            var tabCell = tr.insertCell(-1);
-            tabCell.innerHTML = myBooks[i]['sentiment'];
+            tabCell.innerHTML = article_arr[i]['sentiment'];
                 
         }
 
@@ -92,19 +60,7 @@
 </head>
 
 <body onload="CreateTableFromJSON()">
-
-<div id="showData"></div>
-<!-- <table>
-<tr>
-      <td>
-        3. <a href="http://www.sciencealert.com/we-just-got-even-weirder-results-about-the-alien-megastructure-star">Tabby's star is dimming at an incredible rate</a>
-      </td>
-</tr>
-<tr>
-      <td>
-      &emsp;<span id="score_12238860">250 points</span> by <a href="user?id=ChuckMcM">ChuckMcM</a> | <a href="item?id=12238860">110 comments</a>
-      </td>
-</tr>
-</table> -->
+<div id="showData">
+</div>
 </body>
 </html>
