@@ -12,6 +12,6 @@ def render_result(request,article_dict):
         x = s.replace('u&#39;', '"')  # removing unicode issues in JS
         y = x.replace('&#39;', '"')
         z = y.replace('Content-Type: text/html', '')
-        p = z.replace('u&quot;','"')
-        q = p.replace('&quot;','"')
+        p = z.replace('u&quot;',"'")
+        q = p.replace('&quot;',"'")
         return q
