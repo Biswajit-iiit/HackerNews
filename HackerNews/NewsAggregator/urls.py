@@ -3,5 +3,6 @@ from views import *
 
 urlpatterns = [
     url(r'^topnews/', display_news),
-    url(r'^search/', search_article)
+    url(r'^search/', search_article),
+    url(r'^refresh/', update_article)
 ]

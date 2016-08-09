@@ -40,11 +40,14 @@ class ArticleManager(models.Manager):
         article = eval(requests.get(end_point, headers=headers).text)
         return article
 
-    def get_article_arr(self, article_id_arr):
+    def get_article_arr(self, article_id_arr=None):
         """This function returns array of articles."""
 
-        article_arr = Article.objects.filter(
-            article_id__in=article_id_arr).values()
+        if article_id_arr is not None:
+            article_arr = Article.objects.filter(
+                article_id__in=article_id_arr).values()
+        else:
+            article_arr = Article.objects.all().values()
         for article in article_arr:
             article['article_id'] = str(article['article_id'])
             article['upvote_count'] = str(article['upvote_count'])

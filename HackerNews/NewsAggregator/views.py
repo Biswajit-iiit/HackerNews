@@ -1,30 +1,16 @@
-from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
-from django.template import Context
 import models
-import json
-
+import utils
 
 @csrf_exempt
-def display_news(request):
+def update_article(request):
     """Function to display top news from HackerNews"""
 
     try:
         article_id_arr = models.Article.objects.fetch_top_article_ids()
         article_dict = models.Article.objects.get_article_arr(article_id_arr)
-        s = str(
-            render(
-                request,
-                'news.html',
-                article_dict,
-                content_type='text/html'))
-        x = s.replace("u&#39;", "'")  # removing unicode issues in JS
-        y = x.replace("&#39;", "'")
-        z = y.replace("Content-Type: text/html", "")
-        p = z.replace("u&quot;","'")
-        q = p.replace("&quot;","'")
-        return HttpResponse(q)
+        return HttpResponse(utils.render_result(request,article_dict))
     except Exception:
         return HttpResponse('Error')
 
@@ -38,15 +24,12 @@ def search_article(request):
     except KeyError:
         return HttpResponse('Please supply key')
     article_dict = models.Article.objects.search_article(key)
-    s = str(
-        render(
-            request,
-            'news.html',
-            article_dict,
-            content_type='text/html'))
-    x = s.replace("u&#39;", "'")  # removing unicode issues in JS
-    y = x.replace("&#39;", "'")
-    z = y.replace("Content-Type: text/html", "")
-    p = z.replace("u&quot;","'")
-    q = p.replace("&quot;","'")
-    return HttpResponse(q)
+    return HttpResponse(utils.render_result(request,article_dict))
+
+
+@csrf_exempt
+def display_news(request):
+    """Display all stored articles."""
+
+    article_dict = models.Article.objects.get_article_arr()
+    return HttpResponse(utils.render_result(request,article_dict))
