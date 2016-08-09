@@ -44,10 +44,10 @@ class ArticleManager(models.Manager):
         """This function returns array of articles."""
 
         if article_id_arr is not None:
-            article_arr = Article.objects.filter(
-                article_id__in=article_id_arr).values()
+            article_arr = list(Article.objects.filter(
+                article_id__in=article_id_arr).values())
         else:
-            article_arr = Article.objects.all().values()
+            article_arr = list(Article.objects.all().values())
         for article in article_arr:
             article['article_id'] = str(article['article_id'])
             article['upvote_count'] = str(article['upvote_count'])
